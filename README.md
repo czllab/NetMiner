@@ -19,7 +19,7 @@ The purpose of this package is to construct high-quality gene co-expression netw
 6. GeneNet >= 1.2.12
 
 # Documentation
-To use NetMiner, please refer to the instructions in manual.pdf in this subdirectory
+To use NetMiner, please refer to the instructions in manual.txt in this subdirectory
 
 # License
 NetMiner is licensed under the GPL version 3 or any later version
