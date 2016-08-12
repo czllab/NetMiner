@@ -1,1 +1,15 @@
 
+* A guideline for gene co-expression network inference based on large-scale open access RNA-seq dataset
+
+Step 1. preprocessing the initial RNA-seq reads
+perl multiple_preprocess.pl --runinfofile /public/Project/Project_YuHua/CoexpressNetwork/Data/RiceData/rice_runinfo.csv --inputdir/publi/share/hyu/RNAseq_Data/RiceData --outputdir /public/Project/Project_YuHua/CoexpressNetwork/Data/RiceData --species rice --pbspath pbsfile --rawfastqpath rawfastqfile --fastqcpath fastqcfile --cleanpath cleanfile --trimmomatic --queue vvl --threads 2
+
+Step 2. repairing pair-end reads
+perl submit_fixFastxReadsPairs.pl --inputdir /public/Project/Project_YuHua/CoexpressNetwork/Data/RiceData --cleanpath cleanfile --pbspath pbsfile --queue high --threads 2 &
+
+Step 3. mapping and calculating gene expression abundance 
+perl calculateGeneExpressionAbundance.pl --inputdir /public/Project/Project_YuHua/CoexpressNetwork/Data/RiceData/cleanfile --outputdir /public/Project/Project_YuHua/CoexpressNetwork/Data/RiceData --indexdir /public/Project/Project_YuHua/genome/rice/BOWTIE2_INDEX --bowtiebase msu_7 --tophatdir tophatfile --picard /public/software/picard-tools-1.102 --htseq --cufflinks --htseqdir htseqfile --cufflinksdir cufflinksfile --nomultiplehits --removeduplicate --runinfofile /public/Project/Project_YuHua/CoexpressNetwork/Data/RiceData/rice_runinfo.csv --gfffile /public/Project/Project_YuHua/genome/rice/msu_7.gff3 --coveragedir coveragefile --queue high --threads 4 --refgenome /public/Project/Project_YuHua/genome/rice/msu_7.fasta --pbspath pbsfile --summarydir alignsummaryfile
+
+Step 4. inferring gene co-expression network
+
+
