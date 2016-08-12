@@ -5,7 +5,7 @@ A R package for high-confidence RNA-seq gene co-expression network inference
 1.1.0
 
 # Author
-Hua Yu
+Hua Yu Chengzhi Liang
 
 # Description
 The purpose of this package is to construct high-quality gene co-expression network using large-scale open-access RNA-seq dataset.
