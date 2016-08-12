@@ -1,14 +1,14 @@
 # NetMiner
-A R package for high-confidence RNA-seq gene co-expression network inference
+A pipeline for high-confidence RNA-seq gene co-expression network inference
 
 # Version
 1.0.0
 
 # Author
-Hua Yu Chengzhi Liang
+Hua Yu, Chengzhi Liang
 
 # Description
-The purpose of this package is to construct high-quality gene co-expression network using large-scale open-access RNA-seq dataset.
+The purpose of this package is to construct high-quality gene co-expression network based on large-scale open access RNA-seq dataset.
 
 # Requirements
 1. R >= 3.02
@@ -18,13 +18,10 @@ The purpose of this package is to construct high-quality gene co-expression netw
 5. igraph >= 1.0.1
 6. GeneNet >= 1.2.12
 
-# Installation
-To install NetMiner, please refer to install.txt file in this directory.
-
 # Documentation
-To use NetMiner, please refer to the instructions in manual.pdf in this subdirectory , or type: vignette("NetMiner") at the R-prompt.
+To use NetMiner, please refer to the instructions in manual.pdf in this subdirectory
 
 # License
 NetMiner is licensed under the GPL version 3 or any later version
 
-For more information please contact huayu@genetics.ac.cn and yuhua200886@163.com
+For more information please contact huayu@genetics.ac.cn or yuhua200886@163.com
