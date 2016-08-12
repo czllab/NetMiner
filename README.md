@@ -2,7 +2,7 @@
 A R package for high-confidence RNA-seq gene co-expression network inference
 
 # Version
-1.1.0
+1.0.0
 
 # Author
 Hua Yu Chengzhi Liang
