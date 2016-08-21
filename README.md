@@ -5,7 +5,7 @@ A pipeline for high-confidence RNA-seq gene co-expression network inference
 1.0.0
 
 # Author
-Hua Yu, Chengzhi Liang
+Hua Yu
 
 # Description
 The purpose of this pipeline is to construct high-quality gene co-expression network based on large-scale open access RNA-seq dataset.
