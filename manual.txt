@@ -10,11 +10,20 @@
 4. 
 
 Step 1. Trimming and filtering the downloaded RNA-seq reads
+Program:
+multiple_preprocesses.pl
+Usage:
 
 Step 2. Mapping and calculating gene expression abundance 
+Program:
+Usage:
 
 Step 3. Inferring individual gene co-expression network Using WGCNA,GGM and BC3NET
+Program:
+Usage:
 
 Step 4. Constructing the high-quality consensus network using ensemble-based system
+Program:
+Usage:
 
 
