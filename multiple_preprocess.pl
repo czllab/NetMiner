@@ -6,7 +6,7 @@
 #	3) Trimming and filtering reads 
 #	> Author: Hua Yu
 #	> Mail: huayu@genetics.ac.cn 
-#	Created Time: Fri 06 Jun 2014 02:46:45 PM CST
+#	Created Time: 2014-07-12
 ##########################################################################################################################################
 
 #!/usr/bin/perl -w
