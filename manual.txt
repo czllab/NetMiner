@@ -1,7 +1,7 @@
 
 * A guideline for high-confidence gene co-expression network inference based on the large-scale open access RNA-seq dataset
 
-* To run this pipeline, you need the high-performance computing clusters and install Portable Batch System (PBS)
+* To run this pipeline, you need high-performance computing clusters and install Portable Batch System (PBS)
 
 * This pipeline depend on the following software
 1.
