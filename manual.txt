@@ -3,7 +3,7 @@
 
 * To run this pipeline, you need high-performance computing clusters and install Portable Batch System (PBS)
 
-* This pipeline depend on the following software
+* This pipeline depend on the following softwares
 1.
 2.
 3.
