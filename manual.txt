@@ -4,15 +4,15 @@
 * To run this pipeline, you need high-performance computing clusters and install Linux and the Portable Batch System (PBS)
 
 * This pipeline depend on the following softwares
-1. Perl
-2. R
-3.fastq-dump (sratoolkit.2.3.2-5)
-4.FASTQC V0.10.1 (optional)
-5.Trimmomatic-0.32
-6.FASTX Toolkit
-7.TopHat v2.0.10
-8.htseq-count (HTSeq 0.6.1p2)
-9.cufflinks v2.1.1
+1. Perl (v5.10.1)
+2. R (3.0.2)
+3. fastq-dump (sratoolkit.2.3.2-5)
+4. FASTQC V0.10.1 (optional)
+5. Trimmomatic-0.32
+6. FASTX Toolkit
+7. TopHat v2.0.10
+8. htseq-count (HTSeq 0.6.1p2)
+9. cufflinks v2.1.1
 
 Step 1. Trimming and filtering the downloaded RNA-seq reads
 Program:
@@ -20,21 +20,22 @@ multiple_preprocesses.pl
 submit_fix_fastx_clean_reads.pl
 fix_fastx_clean_reads.pl
 
+Firstly, running the perl script of multiple_preprocesses.pl
 Usage:
-perl multiple_preprocesses.pl --runinfofile \$runinfofile --inputpath \$inputpath --outputpath \$outputpath --pbspath \$pbspath --rawfastqpath \$rawfastqpath --fastqcpath \$fastqcpath --cleanpath \$cleanpath --trimmomatic --queue \$queue --threads \$threads
+perl multiple_preprocesses.pl --runinfofile \$runinfofile --inputpath \$inputpath --outputpath \$outputpath --pbspath \$pbspath --rawfastqpath \$rawfastqpath --fastqcpath \$fastqcpath --cleanpath \$cleanpath --queue \$queue --threads \$threads
 Options:
 	--runinfofile: NCBI run information file
 	--inputpath: SRA file path 
 	--outputpath: FASTQ file path
-	--pbspath: PBS scripts path
+	--pbspath: PBS script path
 	--rawfastqpath: fastq-dump result file path
 	--fastqcpath: fastqc result file path
 	--cleanpath: clean result file path
-	--trimmomatic: whether or not use thrimmomatic software for reads trimming and filtering
 	--queue: PBS queue
 	--threads: the number of threads
 	--help: display help information
 
+Then, running the program of submit_fix_fastx_clean_reads.pl
 Usage:
 perl submit_fix_fastx_clean_reads.pl --cleanpath \$cleanpath --pbspath \$pbspath --queue \$queue --threads \$threads --help \$help
 Options: 
@@ -66,14 +67,42 @@ Options:
 --queue: computing queue
 --threads: the number of threads
 --refgenome: reference genome path
---pbspath: pbs script path
+--pbspath: PBS script path
 
 Step 3. Inferring individual gene co-expression network Using WGCNA,GGM and BC3NET
 Program:
+submit_extract_input_matrix_for_coexpression_inference.pl
+extract_input_matrix_for_coexpression_inference.R
+infer_initial_coexpression_network.R
+
+Firstly, running the perl script of submit_extract_input_matrix_for_coexpression_inference.pl
 Usage:
+perl submit_extract_input_matrix_for_coexpression_inference.pl --inputpath \$inputpath --netfilepath \$netfilepath --runinfofile \$runinfofile --htseqpath \$htseqpath --cufflinkspath \$cufflinkspath --RAW --FPKM --suffix_htseq \$suffix_htseq --suffix_cufflinks \$suffix_cufflinks --help
+Options:
+--inputpath: input file path
+--netfilepath: network file path
+--runinfofile: run information file
+--htseqpath: relative htseq_count results path 
+--cufflinkspath: relative cufflinks results path 
+--RAW: whether or not extract raw expression value per gene
+--FPKM: whether or not extract FPKM value per gene
+--suffix_htseq: htseq result file suffix
+--suffix_cufflinks: cufflinks result file suffix
+--queue: PBS queue
+--help: displaying help information
+
+Then, running the R script of infer_initial_coexpression_network.R
+Usage:
+Rscript --vanilla infer_initial_coexpression_network.R inference_method expression_data_path threads
+Options:
+inference_method: network inference method
+expression_data_path: gene expression data path
+threads: the number of threads
 
 Step 4. Constructing the high-quality consensus network using ensemble-based system
-Program:
+Program:ensemble_method_for_construction_consensus_network.R
 Usage:
-
+Rscript --vanilla /public/Project/Project_YuHua/CoexpressNetwork/Program/networkAnalysis/integrateNetworks.R network_file_path
+Options:
+network_file_path: the initial network file path
 
