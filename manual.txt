@@ -1,22 +1,72 @@
 
 * A guideline for high-confidence gene co-expression network inference based on the large-scale open access RNA-seq dataset
 
-* To run this pipeline, you need high-performance computing clusters and install Portable Batch System (PBS)
+* To run this pipeline, you need high-performance computing clusters and install Linux and the Portable Batch System (PBS)
 
 * This pipeline depend on the following softwares
-1.
-2.
-3.
-4. 
+1. Perl
+2. R
+3.fastq-dump (sratoolkit.2.3.2-5)
+4.FASTQC V0.10.1 (optional)
+5.Trimmomatic-0.32
+6.FASTX Toolkit
+7.TopHat v2.0.10
+8.htseq-count (HTSeq 0.6.1p2)
+9.cufflinks v2.1.1
 
 Step 1. Trimming and filtering the downloaded RNA-seq reads
 Program:
 multiple_preprocesses.pl
+submit_fix_fastx_clean_reads.pl
+fix_fastx_clean_reads.pl
+
 Usage:
+perl multiple_preprocesses.pl --runinfofile \$runinfofile --inputpath \$inputpath --outputpath \$outputpath --pbspath \$pbspath --rawfastqpath \$rawfastqpath --fastqcpath \$fastqcpath --cleanpath \$cleanpath --trimmomatic --queue \$queue --threads \$threads
+Options:
+	--runinfofile: NCBI run information file
+	--inputpath: SRA file path 
+	--outputpath: FASTQ file path
+	--pbspath: PBS scripts path
+	--rawfastqpath: fastq-dump result file path
+	--fastqcpath: fastqc result file path
+	--cleanpath: clean result file path
+	--trimmomatic: whether or not use thrimmomatic software for reads trimming and filtering
+	--queue: PBS queue
+	--threads: the number of threads
+	--help: display help information
+
+Usage:
+perl submit_fix_fastx_clean_reads.pl --cleanpath \$cleanpath --pbspath \$pbspath --queue \$queue --threads \$threads --help \$help
+Options: 
+--cleanpath: clean file path
+--pbspath: PBS script path
+--queue: PBS queue
+--threads: the number of threads
+--help: displaying help information
 
 Step 2. Mapping and calculating gene expression abundance 
 Program:
+mapping_and_expression_cal.pl
+
 Usage:
+perl mapping_and_expression_cal.pl --inputpath \$inputpath --outputpath \$outputpath --indexpath \indexpath --bowtiebase \$bowtiebase --tophatpath \$tophatpath --picardpath \$picardpath --htseqpath \$htseqpath --cufflinkspath \$cufflinkspath --nomultiplehits --removeduplicate --runinfofile \$runinfofile --gfffile \$gfffile --threads \$threads --refgenome \$refgenome --pbspath \$pbspath --help
+Options:
+--inputpath: input file path
+--outputpath: output file path
+--indexpath: bowtie index file path
+--bowtiebase: bowtie index file basename
+--tophatpath: tophat output file path
+--picardpath: picard program path
+--htseqpath: htseq-count output file path
+--cufflinkspath: cufflinks output file path
+--nomultiplehit: whether or not contain the multiple hits
+--removeduplicate: whether or not remove the duplicate reads
+--runinfofile: sequencing run information file
+--gfffile: gff annotation file
+--queue: computing queue
+--threads: the number of threads
+--refgenome: reference genome path
+--pbspath: pbs script path
 
 Step 3. Inferring individual gene co-expression network Using WGCNA,GGM and BC3NET
 Program:
