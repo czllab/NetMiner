@@ -177,7 +177,7 @@ EOF
 						}
 					}
 				}else{
-					print "Couldn't find the fastq file of $$outputpath/$$rawfastqpath/$$runHash{$run}/${runid}_1.fastq.gz\n";
+					print "couldn't find the fastq file of $$outputpath/$$rawfastqpath/$$runHash{$run}/${runid}_1.fastq.gz\n";
 				}
 				if(-e $in_p1 && $in_p2 eq ""){
 					$operators = "$in_p1 $out_p1 $step";
@@ -252,7 +252,7 @@ EOF
 sub getMachineAndReadsLengthInfo{
 	my ($runInfoFile) = @_;
 	my (@fieldnames,%machine,%readLength,%nocol);
-	open(RUNFILE,"<$$runInfoFile") or die "Couldn't open the file $runinfofile: $!\n";
+	open(RUNFILE,"<$$runInfoFile") or die "couldn't open the file $runinfofile: $!\n";
 	while (<RUNFILE>){
 		my $line = $_;
 		$line =~ s/^\s+|\s+$//;
