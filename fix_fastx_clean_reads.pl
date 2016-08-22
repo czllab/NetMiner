@@ -2,7 +2,7 @@
 # Program Name: fixFASTXReadsPairs.pl
 # This program repair paired-end cleaned reads produced by FASTX software
 # Author: Yu Hua
-# Created: 2014-6-26
+# Created: 2014-7-16
 #############################################################################################
 
 #!/usr/bin/perl -w
