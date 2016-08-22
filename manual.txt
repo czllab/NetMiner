@@ -4,8 +4,8 @@
 * To run this pipeline, you need high-performance computing clusters and install Linux and the Portable Batch System (PBS)
 
 * This pipeline depend on the following softwares
-1. Perl (v5.10.1)
-2. R (3.0.2)
+1. Perl v5.10.1
+2. R 3.0.2
 3. fastq-dump (sratoolkit.2.3.2-5)
 4. FASTQC V0.10.1 (optional)
 5. Trimmomatic-0.32
