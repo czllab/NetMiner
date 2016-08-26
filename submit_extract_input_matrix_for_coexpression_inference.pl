@@ -12,15 +12,13 @@ use Getopt::Long;
 my ($inputpath,$netfilepath,$runinfofile,$htseqpath,$cufflinkspath,$RAW,$FPKM,$suffix_htseq,$suffix_cufflinks,$queue,$help);
 my $usage = <<USAGE;
 Usage:
-perl $0 --inputpath \$inputpath --netfilepath \$netfilepath --runinfofile \$runinfofile --htseqpath \$htseqpath --cufflinkspath \$cufflinkspath --RAW --FPKM --suffix_htseq \$suffix_htseq --suffix_cufflinks \$suffix_cufflinks --help
+perl $0 --inputpath \$inputpath --netfilepath \$netfilepath --runinfofile \$runinfofile --htseqpath \$htseqpath --cufflinkspath \$cufflinkspath --suffix_htseq \$suffix_htseq --suffix_cufflinks \$suffix_cufflinks --help
 Options:
 --inputpath: input file path
 --netfilepath: network file path
 --runinfofile: run information file
 --htseqpath: relative htseq_count results path 
 --cufflinkspath: relative cufflinks results path 
---RAW: whether or not extract raw expression value per gene
---FPKM: whether or not extract FPKM value per gene
 --suffix_htseq: htseq result file suffix
 --suffix_cufflinks: cufflinks result file suffix
 --queue: PBS queue
@@ -34,8 +32,6 @@ GetOptions(
 	"runinfofile=s" => \$runinfofile,
 	"htseqpath=s" => \$htseqpath,
 	"cufflinkspath=s" => \$cufflinkspath,
-	"RAW!" => \$RAW,
-	"FPKM!" => \$FPKM,
 	"suffix_htseq=s" => \$suffix_htseq,
 	"suffix_cufflinks=s" => \$suffix_cufflinks,
 	"queue=s" => \$queue,
