@@ -23,7 +23,7 @@ Usage:
 Options:
 	--runinfofile: NCBI run information file
 	--inputpath: SRA file path 
-	--outputpath: FASTQ file path
+	--outputpath: parent output file path
 	--pbspath: PBS scripts path
 	--rawfastqpath: fastq-dump result file path
 	--fastqcpath: fastqc result file path
