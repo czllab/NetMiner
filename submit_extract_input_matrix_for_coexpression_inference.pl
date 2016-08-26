@@ -47,10 +47,9 @@ if ($help){
 	exit(1);
 }
 
-if ($RAW){
-	my $inputpath_htseq = "$inputpath/$htseqpath";
-	open OUT,">extract_htseq_input_matrix_for_coexpression_inference.pbs" or die "couldn't not open the file extract_htseq_input_matrix_for_coexpression_inference.pbs:$!\n";
-	print OUT <<PBS;
+my $inputpath_htseq = "$inputpath/$htseqpath";
+open OUT,">extract_htseq_input_matrix_for_coexpression_inference.pbs" or die "couldn't not open the file extract_htseq_input_matrix_for_coexpression_inference.pbs:$!\n";
+print OUT <<PBS;
 #PBS -N extract_htseq_input_matrix_for_coexpression_inference
 #PBS -j oe
 #PBS -l nodes=1:ppn=1
@@ -67,18 +66,16 @@ cp $inputpath_htseq/TMM_htseq_EdgeR_Normalized_Count.txt $netfilepath
 cp $inputpath_htseq/UQ_htseq_EdgeR_Normalized_Count.txt $netfilepath
 date
 PBS
-	close OUT;
-	my $qsub = `qsub extract_htseq_input_matrix_for_coexpression_inference.pbs`;
-	if($qsub ne ""){
-		print "The task of extract_htseq_input_matrix_for_coexpression_inference.pbs is submitted in $qsub\n";
-	}
-}	
+close OUT;
+my $qsub = `qsub extract_htseq_input_matrix_for_coexpression_inference.pbs`;
+if($qsub ne ""){
+	print "The task of extract_htseq_input_matrix_for_coexpression_inference.pbs is submitted in $qsub\n";
+}
 
-if($FPKM){
-	my $inputpath_htseq = "$inputpath/$htseqpath";
-	my $inputpath_cufflinks = "$inputpath/$cufflinkspath";
-	open OUT,">extract_cufflinks_input_matrix_for_coexpression_inference.pbs" or die "couldn't not open the file extract_cufflinks_input_matrix_for_coexpression_inference.pbs:$!\n";
-	print OUT <<PBS;
+my $inputpath_htseq = "$inputpath/$htseqpath";
+my $inputpath_cufflinks = "$inputpath/$cufflinkspath";
+open OUT,">extract_cufflinks_input_matrix_for_coexpression_inference.pbs" or die "couldn't not open the file extract_cufflinks_input_matrix_for_coexpression_inference.pbs:$!\n";
+print OUT <<PBS;
 #PBS -N extract_cufflinks_input_matrix_for_coexpression_inference
 #PBS -j oe
 #PBS -l nodes=1:ppn=1
@@ -91,9 +88,8 @@ Rscript --vanilla extract_input_matrix_for_coexpression_inference.R $inputpath_c
 cp $inputpath_cufflinks/FPKM_Cufflinks_Normalized_Count.txt $netfilepath
 date
 PBS
-	close OUT;
-	my $qsub = `qsub extract_cufflinks_input_matrix_for_coexpression_inference.pbs`;
-	if($qsub ne ""){
-		print "The task of extract_cufflinks_input_matrix_for_coexpression_inference.pbs is submitted in $qsub\n";
-	}
+close OUT;
+my $qsub = `qsub extract_cufflinks_input_matrix_for_coexpression_inference.pbs`;
+if($qsub ne ""){
+	print "The task of extract_cufflinks_input_matrix_for_coexpression_inference.pbs is submitted in $qsub\n";
 }
