@@ -28,7 +28,6 @@ Options:
 	--rawfastqpath: fastq-dump result file path
 	--fastqcpath: fastqc result file path
 	--cleanpath: clean result file path
-	--trimmomatic: whether or not use thrimmomatic software for reads trimming and filtering
 	--queue: PBS queue
 	--threads: the number of threads
 	--help: display help information
@@ -43,7 +42,6 @@ GetOptions(
 	"rawfastqpath=s" => \$rawfastqpath,
 	"fastqcpath=s" => \$fastqcpath,
 	"cleanpath=s" => \$cleanpath,
-	"trimmomatic!" => \$trimmomatic,
 	"queue=s" => \$queue,
 	"threads=i" => \$threads,
 	"help!" => \$help,
