@@ -19,17 +19,17 @@
 13. R package igraph (>= 1.0.1)
 14. R package GeneNet (>= 1.2.12)
 
-Step 1. Trimming and filtering the downloaded RNA-seq reads
-Program:
+Step 1. Trimming and filtering RNA-seq short reads
+Programs:
 multiple_preprocesses.pl
 submit_fix_fastx_clean_reads.pl
 fix_fastx_clean_reads.pl
 
-Firstly, running the perl script of multiple_preprocesses.pl
+Firstly, running the perl script of multiple_preprocesses.pl for reads trimming and filtering
 Usage:
 perl multiple_preprocesses.pl --runinfofile \$runinfofile --inputpath \$inputpath --outputpath \$outputpath --pbspath \$pbspath --rawfastqpath \$rawfastqpath --fastqcpath \$fastqcpath --cleanpath \$cleanpath --queue \$queue --threads \$threads
 Options:
-	--runinfofile: NCBI run information file
+	--runinfofile: NCBI run information file (downloaded from NCBI)
 	--inputpath: SRA file path 
 	--outputpath: FASTQ file path
 	--pbspath: PBS script path
@@ -40,7 +40,7 @@ Options:
 	--threads: the number of threads
 	--help: display help information
 
-Then, running the program of submit_fix_fastx_clean_reads.pl
+Then, running the perl script of submit_fix_fastx_clean_reads.pl to fix the paired reads
 Usage:
 perl submit_fix_fastx_clean_reads.pl --cleanpath \$cleanpath --pbspath \$pbspath --queue \$queue --threads \$threads --help \$help
 Options: 
@@ -75,12 +75,12 @@ Options:
 --pbspath: PBS script path
 
 Step 3. Inferring individual gene co-expression network Using WGCNA,GGM and BC3NET
-Program:
+Programs:
 submit_extract_input_matrix_for_coexpression_inference.pl
 extract_input_matrix_for_coexpression_inference.R
 infer_initial_coexpression_network.R
 
-Firstly, running the perl script of submit_extract_input_matrix_for_coexpression_inference.pl
+Firstly, running the perl script of submit_extract_input_matrix_for_coexpression_inference.pl to construct gene expression matrix
 Usage:
 perl $0 --inputpath \$inputpath --netfilepath \$netfilepath --runinfofile \$runinfofile --htseqpath \$htseqpath --cufflinkspath \$cufflinkspath --suffix_htseq \$suffix_htseq --suffix_cufflinks \$suffix_cufflinks --help
 Options:
@@ -94,7 +94,7 @@ Options:
 --queue: PBS queue
 --help: displaying help information
 
-Then, running the R script of infer_initial_coexpression_network.R
+Then, running R script of infer_initial_coexpression_network.R to build initial gene co-expression networks
 Usage:
 Rscript --vanilla infer_initial_coexpression_network.R inference_method expression_data_path threads
 Options:
@@ -102,8 +102,9 @@ inference_method: network inference method
 expression_data_path: gene expression data path
 threads: the number of threads
 
-Step 4. Constructing the high-quality consensus network using ensemble-based system
-Program:ensemble_method_for_construction_consensus_network.R
+Step 4. Constructing the high-quality network using ensemble-based system
+Program:
+ensemble_method_for_construction_consensus_network.R
 Usage:
 Rscript --vanilla /public/Project/Project_YuHua/CoexpressNetwork/Program/networkAnalysis/integrateNetworks.R network_file_path
 Options:
