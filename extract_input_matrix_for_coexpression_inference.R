@@ -1,13 +1,13 @@
 #########################################################################################################
 #	> File Name: extract_input_matrix_for_coexpression_inference.R
 #	> This program extract the RNA-seq gene expression matrix from htseq_count result files 
-#   > and cufflinks result files, and normalize the obtained RNA-seq expression matrix
+#       > and cufflinks result files, and normalize the obtained RNA-seq expression matrix
 #	> Author: Hua Yu
 #	> Mail: huayu@genetics.ac.cn 
 #	Created Time: 2014-08-10
 #########################################################################################################
 
-# extracting the expression value from htseq result files or cufflinks result files 
+# extracting the gene expression value from htseq-count result files or cufflinks result files 
 extractGeneCount <- function(path,suffix){
 	cat(path,"\n",suffix,"\n")
 	if(suffix == "htseq_count.txt"){
@@ -218,7 +218,7 @@ normalizationData <- function (path,suffix,pathadd){
 	}
 }
 
-### extracting the relationships between runs and samples from the NCBI run file
+### extracting the relationships between runs and samples from the NCBI run information file
 extractRelationBetweenRunAndSample <- function(path,filename){
 	runInfo <- read.csv(file=paste(path,filename,sep="/"),header=TRUE,stringsAsFactors=FALSE)
 	results <- cbind(runInfo$Run,runInfo$Sample))
