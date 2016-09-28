@@ -1,7 +1,7 @@
 ######################################################################################################################
 #	> File Name: mapping_and_expression_cal.pl
 #	> This program aligns the cleaned reads to reference genome and calculates the gene expression
-#   > abundance by Tophat, htseq-count and cufflinks software
+#       > abundance by Tophat, htseq-count and cufflinks software
 #	> Author: Hua Yu
 #	> Mail: huayu@genetics.ac.cn 
 #	> Created Time: 2014-08-02
