@@ -56,7 +56,7 @@ my @runs=`find $inputpath -name "*.sra"`;
 print "$_\n" foreach (@runs);
 
 for my $run (@runs){
-	chomp $run;
+    chomp $run;
     my @fields=split/\//,$run;
     $runHash{$fields[-1]} = $fields[-2];  
 }
