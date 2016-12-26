@@ -1,5 +1,5 @@
 # NetMiner
-A pipeline for high-quality RNA-seq gene co-expression network inference
+A pipeline for high-quality RNA-seq-based gene co-expression network inference
 
 # Version
 1.0.0
