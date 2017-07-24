@@ -112,3 +112,4 @@ network_file_path: the initial network file path
 
 The example outputfile of NetMiner.
 gcnet_rice.tab: The rice gene co-expression network constructed by our pipeline
+This file includes three columns: The first gene, the second gene and confidence score
