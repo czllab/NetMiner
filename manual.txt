@@ -1,0 +1,141 @@
+* A guideline for high-quality gene co-expression network inference based on the massive-scale RNA-seq samples
+
+* The pipeline can be run by two methods.
+
+1) If you have obtained the gene expression matrix from RNA-seq samples, you can run a single R script to obtain gene co-expression network.
+
+Before running R script, please install the R packages, WGCNA (>= 1.29), corpcor (>= 1.6.7), bc3net (>= 1.0.2), igraph (>= 1.0.1), GeneNet (>= 1.2.12).
+
+Change the work directory to source code directory. Then, run the following command to obtain the results
+
+Rscript --vanilla ensemble_method_for_construction_consensus_network.R filePath nThreads percThreshold S1N S2N
+
+Options:
+filePath: the data file path including input gene expression files and output resulting network file
+nThreads: the number of threads used in WGCNA method
+percThreshold: The percentile threshold for selecting the high-confidence co-expression links
+S1N: The number of networks used to select the co-expression links in first step of two-step voting procedure
+S2N: The number of networks used to select the co-expression links in second step of two-step voting procedure
+
+Note, before running this program, please ensuring the filePath includes RAW reads count dataset and 5 normalized datasets. The format of these files are given in testdata file folder
+
+A test example to run this script
+Rscript --vanilla ensemble_method_for_construction_consensus_network.R source_code_directory/testdata 8 0.005 3 2
+
+It will produce a network file, final_geneNet.tab.
+This file includes three columns: The first gene, the second gene and confidence score 
+
+2) We also provide the whole computational pipeline from RNA-seq sequencing reads to gene co-expression network. If you just downloaded the RNA-seq samples from NCBI SRA and want to apply the analytical process introduced in our paper to produce gene expression matrix, we can select this to achieve your task.
+
+* To run whole pipeline, the users need high-performance computing clusters, Linux and the Portable Batch System (PBS)
+
+* This pipeline depends on the following softwares
+1. Perl v5.10.1
+2. R-3.0.2
+3. fastq-dump (sratoolkit.2.3.2-5)
+4. FASTQC V0.10.1 (optional)
+5. Trimmomatic-0.32
+6. FASTX Toolkit
+7. TopHat v2.0.10
+8. htseq-count (HTSeq 0.6.1p2)
+9. cufflinks v2.1.1
+10. DESeq2
+11. edgeR
+12. R package WGCNA (>= 1.29)
+13. R package corpcor (>= 1.6.7)
+14. R package bc3net (>= 1.0.2)
+15. R package igraph (>= 1.0.1)
+16. R package GeneNet (>= 1.2.12)
+
+Change the work directory to source code directory
+
+Step 1. Trimming and filtering RNA-seq short reads
+Programs:
+prescripts/multiple_preprocesses.pl
+prescripts/submit_fix_fastx_clean_reads.pl
+prescripts/fix_fastx_clean_reads.pl
+
+Firstly, running the perl script, multiple_preprocesses.pl, for reads trimming and filtering
+Usage:
+perl prescripts/multiple_preprocesses.pl --runinfofile \$runinfofile --inputpath \$inputpath --outputpath \$outputpath --pbspath \$pbspath --rawfastqpath \$rawfastqpath --fastqcpath \$fastqcpath --cleanpath \$cleanpath --queue \$queue --threads \$threads
+Options:
+	--runinfofile: NCBI run information file (downloaded from NCBI)
+	--inputpath: SRA file path 
+	--outputpath: FASTQ file path
+	--pbspath: PBS script path
+	--rawfastqpath: fastq-dump result file path
+	--fastqcpath: fastqc result file path
+	--cleanpath: clean result file path
+	--queue: PBS queue
+	--threads: the number of threads
+	--help: display help information
+
+Then, running the perl script, submit_fix_fastx_clean_reads.pl, to fix the paired reads
+Usage:
+perl prescripts/submit_fix_fastx_clean_reads.pl --cleanpath \$cleanpath --pbspath \$pbspath --queue \$queue --threads \$threads --help \$help
+Options: 
+--cleanpath: clean file path
+--pbspath: PBS script path
+--queue: PBS queue
+--threads: the number of threads
+--help: displaying help information
+
+Step 2. Mapping and calculating gene expression abundance 
+Program:
+prescripts/mapping_and_expression_calculation.pl
+
+Usage:
+perl prescripts/mapping_and_expression_calculation.pl --inputpath \$inputpath --outputpath \$outputpath --indexpath \indexpath --bowtiebase \$bowtiebase --tophatpath \$tophatpath --picardpath \$picardpath --htseqpath \$htseqpath --cufflinkspath \$cufflinkspath --nomultiplehits --removeduplicate --runinfofile \$runinfofile --gfffile \$gfffile --threads \$threads --refgenome \$refgenome --pbspath \$pbspath --help
+Options:
+--inputpath: input file path
+--outputpath: output file path
+--indexpath: bowtie index file path
+--bowtiebase: bowtie index file basename
+--tophatpath: tophat output file path
+--picardpath: picard program path
+--htseqpath: htseq-count output file path
+--cufflinkspath: cufflinks output file path
+--nomultiplehit: whether contain the multiple hits
+--removeduplicate: whether remove the duplicate reads
+--runinfofile: sequencing run information file
+--gfffile: gff annotation file
+--queue: computing queue
+--threads: the number of threads
+--refgenome: reference genome path
+--pbspath: PBS script path
+
+Step 3. Constructing gene expression matrix 
+Programs:
+prescripts/constructing_gene_expression_matrix.pl
+prescripts/constructing_gene_expression_matrix.R
+
+Usage:
+perl prescripts/constructing_gene_expression_matrix.pl --inputpath \$inputpath --netfilepath \$netfilepath --runinfofile \$runinfofile --htseqpath \$htseqpath --cufflinkspath \$cufflinkspath --suffix_htseq \$suffix_htseq --suffix_cufflinks \$suffix_cufflinks --help
+Options:
+--inputpath: input file path
+--netfilepath: network file path
+--runinfofile: run information file
+--htseqpath: relative htseq_count results path 
+--cufflinkspath: relative cufflinks results path 
+--suffix_htseq: htseq result file suffix
+--suffix_cufflinks: cufflinks result file suffix
+--queue: PBS queue
+--help: displaying help information
+
+Step 4. Constructing the high-quality network using ensemble voting system
+Program:
+ensemble_method_for_construction_consensus_network.R
+Usage:
+Rscript --vanilla /public/Project/Project_YuHua/CoexpressNetwork/Program/networkAnalysis/integrateNetworks.R filepath
+Options:
+filepath: the data file path including input gene expression files and output resulting network file
+nThreads: the number of threads
+percThreshold: The percentile threshold for selecting the high-confidence co-expression links
+S1N: The number of networks used to select the co-expression links in first step of two-step voting procedure
+S2N: The number of networks used to select the co-expression links in second step of two-step voting procedure
+
+The final_geneNet_rice.tab under source code directory is the rice gene co-expression network constructed by our pipeline 
+
+For any questions, please contact:
+----------------------------------
+Hua Yu (yuhua200886@163.com, huayu@genetics.ac.cn)

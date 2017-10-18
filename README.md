@@ -1,5 +1,5 @@
 # NetMiner
-A pipeline for high-quality RNA-seq-based gene co-expression network inference
+An ensemble pipeline for high-quality RNA-seq-based gene co-expression network inference
 
 # Version
 1.0.0
@@ -8,7 +8,7 @@ A pipeline for high-quality RNA-seq-based gene co-expression network inference
 Hua Yu
 
 # Description
-The purpose of this pipeline is to construct high-quality gene co-expression network based on large-scale open access RNA-seq dataset.
+The purpose of this pipeline is to construct high-quality gene co-expression network based on massive-scale RNA-seq samples.
 
 # Documentation
 To use NetMiner, please refer to the instructions in manual.txt in this subdirectory
