@@ -138,4 +138,4 @@ The final_geneNet_rice.tab under source code directory is the rice gene co-expre
 
 For any questions, please contact:
 ----------------------------------
-Hua Yu (yuhua200886@163.com, huayu@genetics.ac.cn)
+Hua Yu (hyu200886@ntu.edu.cn, yuhua200886@163.com, huayu@genetics.ac.cn)
