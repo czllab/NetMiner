@@ -16,4 +16,4 @@ To use NetMiner, please refer to the instructions in manual.txt in this subdirec
 # License
 NetMiner is licensed under the GPL version 3 or any later version
 
-For more information please contact huayu@genetics.ac.cn or yuhua200886@163.com
+For more information please contact hyu200886@ntu.edu.cn, yuhua200886@163.com or huayu@genetics.ac.cn  
